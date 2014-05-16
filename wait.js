@@ -1,8 +1,17 @@
 (function (global, undefined) {
-	'use strict';
-	var wait;
-	wait = function(data) {
-        var check, context, fail, freq, isResetFunction, reset, resetAllTimers, success, timers, waitInner;
+    'use strict';
+    var wait;
+    wait = function(data) {
+        var check,
+            context,
+            fail,
+            freq,
+            isResetFunction,
+            reset,
+            resetAllTimers,
+            success,
+            timers,
+            waitInner;
         timers = {};
         resetAllTimers = function() {
             clearTimeout(timers.timer);
@@ -16,14 +25,14 @@
             success = function() {
                 resetAllTimers();
                 data.success();
-                if (data.always === "function") {
+                if (typeof data.always === 'function') {
                     data.always();
                 }
             };
         } else {
             success = function() {
                 resetAllTimers();
-                if (data.always === "function") {
+                if (typeof data.always === 'function') {
                     data.always();
                 }
             };
@@ -32,14 +41,14 @@
             fail = function() {
                 resetAllTimers();
                 data.fail();
-                if (data.always === "function") {
+                if (typeof data.always === 'function') {
                     data.always();
                 }
             };
         } else {
             fail = function() {
                 resetAllTimers();
-                if (data.always === "function") {
+                if (typeof data.always === 'function') {
                     data.always();
                 }
             };
@@ -59,7 +68,7 @@
                     return context.document.querySelector(data.selector);
                 };
             } else {
-                throw 'wait(): no condition specified';
+                throw new Error('wait(): no condition specified');
             }
         }
         if (check()) {
