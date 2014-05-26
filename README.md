@@ -1,8 +1,11 @@
 Usage:
+======
 
 ``` js
+var helpers = new core.Helpers();
+
 // with reset timer
-wait({
+helpers.wait({
     freq: 100,
     reset: 3000,
     check: function () {
@@ -20,7 +23,7 @@ wait({
 });
 
 // with reset function
-wait({
+helpers.wait({
     freq: 100,
     reset: function () {
         return 2 + 2 > -1;
@@ -39,3 +42,8 @@ wait({
     }
 });
 ```
+
+TODO:
+=====
+
+Add more examples
