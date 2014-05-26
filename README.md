@@ -2,7 +2,7 @@ Usage:
 ======
 
 ``` js
-var helpers = new core.Helpers();
+var helpers = new core.T0.Helpers();
 
 // with reset timer
 helpers.wait({

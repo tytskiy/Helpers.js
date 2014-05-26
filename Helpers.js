@@ -311,5 +311,5 @@
     /* Helpers end */
 
     // export
-    core.T16 = Helpers;
+    core.T0 = Helpers;
 })(window, window.core);
