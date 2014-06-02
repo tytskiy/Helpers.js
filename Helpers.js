@@ -286,6 +286,23 @@
         }
     };
 
+    Helpers.prototype.request = function(cb, time) {
+        var done;
+
+        done = false;
+        if (cb && typeof cb === 'function') {
+            core.CGRequest(function() {
+                done = true;
+                cb();
+            });
+            setTimeout(function() {
+                if (!done) {
+                    cb();
+                }
+            }, time || 6000);
+        }
+    };
+
     Helpers.prototype.extend = function () {
         return Helpers.extend.apply(arguments);
     };
