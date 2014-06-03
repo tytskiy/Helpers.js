@@ -1,4 +1,4 @@
-(function (global, core, undefined) {
+(function (global, core, campaignPrefix, undefined) {
     'use strict';
 
     var Helpers;
@@ -346,5 +346,5 @@
     /* Helpers end */
 
     // export
-    core.T0 = Helpers;
-})(window, window.core);
+    core[campaignPrefix] = Helpers;
+})(window, window.core, 'T0');
