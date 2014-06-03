@@ -160,7 +160,8 @@
     };
 
     Helpers.prototype.wait = function (data) {
-        var check,
+        var that,
+            check,
             context,
             fail,
             freq,
@@ -170,6 +171,8 @@
             success,
             timers,
             waitInner;
+
+        that = this;
         timers = {};
         resetAllTimers = function () {
             clearTimeout(timers.timer);
@@ -182,32 +185,32 @@
         if (typeof data.success === 'function') {
             success = function () {
                 resetAllTimers();
-                data.success();
+                data.success.call(that);
                 if (typeof data.always === 'function') {
-                    data.always();
+                    data.always.call(that);
                 }
             };
         } else {
             success = function () {
                 resetAllTimers();
                 if (typeof data.always === 'function') {
-                    data.always();
+                    data.always.call(that);
                 }
             };
         }
         if (typeof data.fail === 'function') {
             fail = function () {
                 resetAllTimers();
-                data.fail();
+                data.fail.call(that);
                 if (typeof data.always === 'function') {
-                    data.always();
+                    data.always.call(that);
                 }
             };
         } else {
             fail = function () {
                 resetAllTimers();
                 if (typeof data.always === 'function') {
-                    data.always();
+                    data.always.call(that);
                 }
             };
         }
