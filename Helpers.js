@@ -12,6 +12,8 @@
         this.props = {};
     };
 
+    Helpers.prototype.version = '0.1.0';
+
     Helpers.prototype.makeDispatcher = function () {
         var dispatcher;
 
