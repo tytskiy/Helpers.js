@@ -3,10 +3,10 @@
 
     var Helpers;
 
-    Helpers = function (testNumber) {
-        this.testNumber = testNumber;
-        if (!testNumber) {
-            throw 'Please set Test number';
+    Helpers = function (campaignPrefix) {
+        this.campaignPrefix = campaignPrefix;
+        if (!campaignPrefix) {
+            throw 'Please set Test prefix';
         }
         this.props = {};
     };
@@ -38,10 +38,10 @@
     };
 
     Helpers.prototype.setCssNamespace = function () {
-        var testNumber;
+        var campaignPrefix;
 
-        testNumber = this.testNumber.toLowerCase();
-        this.$('body').addClass('mm-' + testNumber);
+        campaignPrefix = this.campaignPrefix.toLowerCase();
+        this.$('body').addClass('mm-' + campaignPrefix);
     };
 
     Helpers.prototype.detectFirefox = function () {
@@ -86,7 +86,7 @@
         that = this;
         return function (name, handler) {
             if (!selector || !name || !handler) {
-                throw '' + that.testNumber + ' delegate: invalid arguments';
+                throw '' + that.campaignPrefix + ' delegate: invalid arguments';
             }
             if (that.$.fn.on) {
                 that.$(document).on(name, selector, handler);
@@ -105,7 +105,7 @@
         that = this;
         return function (name, handler) {
             if (!name) {
-                throw '' + that.testNumber + ' undelegate: invalid arguments';
+                throw '' + that.campaignPrefix + ' undelegate: invalid arguments';
             }
             if (that.$.fn.off) {
                 that.$(document).off(name, selector, handler);
