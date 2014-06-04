@@ -8,7 +8,6 @@
         if (!testNumber) {
             throw 'Please set Test number';
         }
-        this.isFirefox = this.detectFirefox();
         this.props = {};
     };
 
@@ -57,8 +56,12 @@
     };
 
     Helpers.prototype.fixFirefoxHistory = function () {
-        var hash;
+        var hash,
+            isFirefox;
 
+        isFirefox = this.isFirefox === false ?
+            false :
+            this.isFirefox = this.detectFirefox();
         if (this.isFirefox) {
             hash = location.hash;
             hash = hash.length ? '' + hash + '-mm' : 'mm';
@@ -232,17 +235,17 @@
                 throw 'wait(): no condition specified';
             }
         }
-        if (check()) {
+        if (check.call(that)) {
             success();
-        } else if (isResetFunction && reset()) {
+        } else if (isResetFunction && reset.call(that)) {
             fail();
         } else {
             waitInner = function (data) {
                 timers.timer = setTimeout(function () {
-                    if (check()) {
+                    if (check.call(that)) {
                         success();
                     } else {
-                        if (isResetFunction && reset()) {
+                        if (isResetFunction && reset.call(that)) {
                             fail();
                         } else {
                             waitInner(data);
