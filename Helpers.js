@@ -75,7 +75,9 @@
             if (location.assign) {
                 location.assign(url);
             } else {
+                /* jshint ignore:start */
                 location = url;
+                /* jshint ignore:end */
             }
         }
     };
@@ -155,7 +157,7 @@
         core._async = true;
         core.SetPageID('events');
         core.SetAction(data.name, data.val || 1, data.attr || '');
-        core.CGRequest(data.then || function () {});
+        this.request(data.then || function () {}, data.time || null);
     };
 
     Helpers.prototype.stripScripts = function (html) {
