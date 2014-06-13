@@ -1,0 +1,26 @@
+{
+  "name": "Helpers.js",
+  "version": "0.1.0",
+  "description": "Some usefull function for mvt campaigns developement",
+  "main": "Helpers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tytskiy/Helpers.js.git"
+  },
+  "author": "tytskiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tytskiy/Helpers.js/issues"
+  },
+  "homepage": "https://github.com/tytskiy/Helpers.js",
+  "devDependencies": {
+    "gulp": "~3.8.0",
+    "gulp-preprocess": "~1.0.1",
+    "gulp-jshint": "~1.6.2",
+    "jshint-stylish": "~0.2.0",
+    "gulp-uglifyjs": "~0.3.0"
+  }
+}
