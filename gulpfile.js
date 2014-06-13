@@ -3,12 +3,16 @@ var preprocess;
 var version;
 var jshint;
 var uglify;
+var showTasks;
 
 gulp = require('gulp');
 preprocess = require('gulp-preprocess');
 version = require('./package.json').version;
 jshint = require('gulp-jshint');
 uglify = require('gulp-uglifyjs');
+showTasks = require('gulp-task-listing');
+
+gulp.task('help', showTasks);
 
 gulp.task('lint', function() {
     return gulp.src(['./src/Helpers.js'])
@@ -29,6 +33,4 @@ gulp.task('minify', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('default', function() {
-
-});
+gulp.task('default', ['build', 'minify']);

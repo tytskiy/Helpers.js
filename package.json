@@ -21,6 +21,7 @@
     "gulp-preprocess": "~1.0.1",
     "gulp-jshint": "~1.6.2",
     "jshint-stylish": "~0.2.0",
-    "gulp-uglifyjs": "~0.3.0"
+    "gulp-uglifyjs": "~0.3.0",
+    "gulp-task-listing": "~0.3.0"
   }
 }
