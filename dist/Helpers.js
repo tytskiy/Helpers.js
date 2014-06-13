@@ -26,7 +26,7 @@
         this.props = {};
     };
 
-    Helpers.prototype.version = '0.2.2';
+    Helpers.prototype.version = '0.3.0';
 
     /** @begin OOP related functions */
     Helpers.prototype.extend = function () {
@@ -54,8 +54,9 @@
     /** @end OOP related functions */
 
     /**
-     *@begin jQuery related functions
+     * @begin jQuery related functions
      * Should be run only after getting access to jQuery.
+     * jQuery should be available as `this.$`.
      */
     Helpers.prototype.setCssNamespace = function () {
         var prefix;
@@ -189,13 +190,17 @@
     /** @begin core related functions */
     Helpers.prototype.request = function(cb, time) {
         var done;
+        var isCbGiven;
 
         done = false;
-        if (cb && typeof cb === 'function') {
-            core.CGRequest(function() {
-                done = true;
+        isCbGiven = (cb && typeof cb === 'function') ? true : false;
+        core.CGRequest(function () {
+            done = true;
+            if (isCbGiven) {
                 cb();
-            });
+            }
+        });
+        if (isCbGiven) {
             setTimeout(function() {
                 if (!done) {
                     cb();
@@ -212,7 +217,7 @@
     };
     /** @end core related functions */
 
-    /** @begin none related functions */
+    /** @begin common functions */
     Helpers.prototype.wait = function (data) {
         var that,
             check,
@@ -380,7 +385,7 @@
             years: calc(315576e5)
         };
     })();
-    /** @end none related functions */
+    /** @end common functions */
 
 
 
