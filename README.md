@@ -1,5 +1,12 @@
-Usage:
-======
+How to develop
+--------------
+1. `git clone https://github.com/tytskiy/Helpers.js.git`
+2. `npm i -g gulp`
+3. `npm i`
+4. `gulp`
+
+Usage
+-----
 
 ``` js
 var helpers = new core.T0.Helpers();
@@ -44,6 +51,6 @@ helpers.wait({
 ```
 
 TODO:
-=====
+-----
 
 Add more examples
