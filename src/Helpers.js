@@ -321,7 +321,7 @@
     };
 
     // adopt https://github.com/henrikjoreteg/milliseconds
-    Helpers.prototype.ms = (function () {
+    Helpers.prototype.time = (function () {
         var calc;
 
         calc = function (m) {

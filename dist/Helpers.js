@@ -18,7 +18,7 @@
         this.props = {};
     };
 
-    Helpers.prototype.version = '0.1.1';
+    Helpers.prototype.version = '0.2.1';
 
     Helpers.prototype.makeDispatcher = function () {
         var dispatcher;
@@ -321,7 +321,7 @@
     };
 
     // adopt https://github.com/henrikjoreteg/milliseconds
-    Helpers.prototype.ms = (function () {
+    Helpers.prototype.time = (function () {
         var calc;
 
         calc = function (m) {
