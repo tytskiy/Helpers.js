@@ -18,6 +18,7 @@ file = './src/Helpers.js';
 insert = require('gulp-insert');
 banner = [
     '/*',
+    ' * Helpers.js - version ' + version,
     ' * Unminified version at https://github.com/tytskiy/Helpers.js',
     " * Don't forget to set correct prefix as last argument",
     ' * E.g. change dummy "T0" to your own:',
