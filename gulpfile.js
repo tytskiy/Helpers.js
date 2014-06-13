@@ -18,9 +18,9 @@ file = './src/Helpers.js';
 insert = require('gulp-insert');
 banner = [
     '/**',
-    ' * Version ' + version + ', uncompressed at https://github.com/tytskiy/Helpers.js',
-    ' * Warning! Fix prefix (change "T0" to your own), example (was - become):',
-    ' * !function(...}("T0"); - !function(...}("T23");',
+    ' * Version ' + version + ', get uncompressed https://github.com/tytskiy/Helpers.js',
+    ' * Warning! Fix the prefix.',
+    ' * !function(...}("T0"); becomes !function(...}("T23");',
     ' */\n'
 ].join('\n');
 
