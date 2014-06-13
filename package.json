@@ -1,7 +1,7 @@
 {
   "name": "Helpers.js",
-  "version": "0.2.1",
-  "description": "Collection of functions for mvt-cmpaign developmen",
+  "version": "0.2.2",
+  "description": "Collection of functions for rapid campaign development",
   "main": "Helpers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

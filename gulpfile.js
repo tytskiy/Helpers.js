@@ -17,16 +17,10 @@ showTasks = require('gulp-task-listing');
 file = './src/Helpers.js';
 insert = require('gulp-insert');
 banner = [
-    '/*',
-    ' * Helpers.js - version ' + version,
-    ' * Unminified version at https://github.com/tytskiy/Helpers.js',
-    " * Don't forget to set correct prefix as last argument",
-    ' * E.g. change dummy "T0" to your own:',
-    ' * Example:',
-    ' *     // was',
-    ' *     !function(a,b,c){"use strict";var d;d=fun...}("0");',
-    ' *     // become',
-    ' *     !function(a,b,c){"use strict";var d;d=fun...}("T23");',
+    '/**',
+    ' * Version ' + version + ', uncompressed at https://github.com/tytskiy/Helpers.js',
+    ' * Warning! Fix prefix (change "T0" to your own), example (was - become):',
+    ' * !function(...}("T0"); - !function(...}("T23");',
     ' */\n'
 ].join('\n');
 
