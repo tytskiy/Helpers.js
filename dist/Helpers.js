@@ -1,17 +1,24 @@
-(function (global, core, campaignPrefix, undefined) {
+/*
+ * Helpers.js - collection of function for mvt-cmpaign developmen
+ * Author tytskiy https://github.com/tytskiy
+ * Licenced under Public domain in 2014.
+ */
+(function (prefix, undefined) {
     'use strict';
 
+    var global = window;
+    var core = window.mmcore;
     var Helpers;
 
-    Helpers = function (campaignPrefix) {
-        this.campaignPrefix = campaignPrefix;
-        if (!campaignPrefix) {
+    Helpers = function (prefix) {
+        this.prefix = prefix;
+        if (!prefix) {
             throw 'Please set Test prefix';
         }
         this.props = {};
     };
 
-    Helpers.prototype.version = '0.1.0';
+    Helpers.prototype.version = '0.1.1';
 
     Helpers.prototype.makeDispatcher = function () {
         var dispatcher;
@@ -38,10 +45,10 @@
     };
 
     Helpers.prototype.setCssNamespace = function () {
-        var campaignPrefix;
+        var prefix;
 
-        campaignPrefix = this.campaignPrefix.toLowerCase();
-        this.$('body').addClass('mm-' + campaignPrefix);
+        prefix = this.prefix.toLowerCase();
+        this.$('body').addClass('mm-' + prefix);
     };
 
     Helpers.prototype.detectFirefox = function () {
@@ -88,7 +95,7 @@
         that = this;
         return function (name, handler) {
             if (!selector || !name || !handler) {
-                throw '' + that.campaignPrefix + ' delegate: invalid arguments';
+                throw '' + that.prefix + ' delegate: invalid arguments';
             }
             if (that.$.fn.on) {
                 that.$(document).on(name, selector, handler);
@@ -107,7 +114,7 @@
         that = this;
         return function (name, handler) {
             if (!name) {
-                throw '' + that.campaignPrefix + ' undelegate: invalid arguments';
+                throw '' + that.prefix + ' undelegate: invalid arguments';
             }
             if (that.$.fn.off) {
                 that.$(document).off(name, selector, handler);
@@ -356,5 +363,5 @@
     /* Helpers end */
 
     // export
-    core[campaignPrefix] = Helpers;
-})(window, window.core, 'T0');
+    core[prefix] = Helpers;
+})('T0');
