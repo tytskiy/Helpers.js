@@ -1,7 +1,9 @@
-/*
- * Helpers.js - collection of function for mvt-cmpaign developmen
- * Author tytskiy https://github.com/tytskiy
- * Licenced under Public domain in 2014.
+/**
+ * Collection of functions for rapid campaign development.
+ * @author tytskiy
+ * @github https://github.com/tytskiy
+ * @license Public domain
+ * @year 2014
  */
 (function (prefix, undefined) {
     'use strict';
@@ -10,83 +12,56 @@
     var core = window.mmcore;
     var Helpers;
 
+    /**
+     * Base class.
+     * @class
+     * @constructor
+     * @param {string} prefix The prefix to export helper's object.
+     */
     Helpers = function (prefix) {
         this.prefix = prefix;
         if (!prefix) {
-            throw 'Please set Test prefix';
+            throw 'Please set campaign prefix';
         }
         this.props = {};
     };
 
-    Helpers.prototype.version = '0.2.1';
+    Helpers.prototype.version = '0.2.2';
 
-    Helpers.prototype.makeDispatcher = function () {
-        var dispatcher;
-
-        dispatcher = this.$({});
-        dispatcher.subscribe = function () {
-            if (dispatcher.on) {
-                return dispatcher.on.apply(dispatcher, arguments);
-            } else {
-                return dispatcher.bind.apply(dispatcher, arguments);
-            }
-        };
-        dispatcher.unsubscribe = function () {
-            if (dispatcher.off) {
-                return dispatcher.off.apply(dispatcher, arguments);
-            } else {
-                return dispatcher.unbind.apply(dispatcher, arguments);
-            }
-        };
-        dispatcher.publish = function () {
-            return dispatcher.trigger.apply(dispatcher, arguments);
-        };
-        this.dispatcher = dispatcher;
+    /** @begin OOP related functions */
+    Helpers.prototype.extend = function () {
+        return Helpers.extend.apply(arguments);
     };
 
+    Helpers.extend = function (child, parent) {
+        var own,
+            Ctor;
+
+        own = {}.hasOwnProperty;
+        for (var key in parent) {
+            if (own.call(parent, key)) {
+                child[key] = parent[key];
+            }
+        }
+        Ctor = function () {
+            this.constructor = child;
+        };
+        Ctor.prototype = parent.prototype;
+        child.prototype = new Ctor();
+        child.__super__ = parent.prototype;
+        return child;
+    };
+    /** @end OOP related functions */
+
+    /**
+     *@begin jQuery related functions
+     * Should be run only after getting access to jQuery.
+     */
     Helpers.prototype.setCssNamespace = function () {
         var prefix;
 
         prefix = this.prefix.toLowerCase();
         this.$('body').addClass('mm-' + prefix);
-    };
-
-    Helpers.prototype.detectFirefox = function () {
-        var browser;
-
-        browser = navigator.userAgent;
-        if (browser && browser.toLowerCase().indexOf('firefox') > -1) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    Helpers.prototype.fixFirefoxHistory = function () {
-        var hash,
-            isFirefox;
-
-        isFirefox = this.isFirefox === false ?
-            false :
-            this.isFirefox = this.detectFirefox();
-        if (this.isFirefox) {
-            hash = location.hash;
-            hash = hash.length ? '' + hash + '-mm' : 'mm';
-            location.hash = hash;
-        }
-    };
-
-    Helpers.prototype.redirect = function (url) {
-        if (url) {
-            this.fixFirefoxHistory();
-            if (location.assign) {
-                location.assign(url);
-            } else {
-                /* jshint ignore:start */
-                location = url;
-                /* jshint ignore:end */
-            }
-        }
     };
 
     Helpers.prototype.delegate = function (selector) {
@@ -146,18 +121,87 @@
         return false;
     };
 
-    Helpers.prototype.injectStyle = function (styleString) {
-        var style;
+    Helpers.prototype.makeDispatcher = function () {
+        var dispatcher;
 
-        style = document.createElement('style');
-        style.type = 'text/css';
-        if (style.styleSheet) {
-            style.styleSheet.cssText = styleString;
+        dispatcher = this.$({});
+        dispatcher.subscribe = function () {
+            if (dispatcher.on) {
+                return dispatcher.on.apply(dispatcher, arguments);
+            } else {
+                return dispatcher.bind.apply(dispatcher, arguments);
+            }
+        };
+        dispatcher.unsubscribe = function () {
+            if (dispatcher.off) {
+                return dispatcher.off.apply(dispatcher, arguments);
+            } else {
+                return dispatcher.unbind.apply(dispatcher, arguments);
+            }
+        };
+        dispatcher.publish = function () {
+            return dispatcher.trigger.apply(dispatcher, arguments);
+        };
+        this.dispatcher = dispatcher;
+    };
+    /** @end jQuery related functions */
+
+    /** @begin browser related functions */
+    Helpers.prototype.detectFirefox = function () {
+        var browser;
+
+        browser = navigator.userAgent;
+        if (browser && browser.toLowerCase().indexOf('firefox') > -1) {
+            return true;
         } else {
-            style.appendChild(document.createTextNode(styleString));
+            return false;
         }
-        document.getElementsByTagName('head')[0].appendChild(style);
-        return style;
+    };
+
+    Helpers.prototype.fixFirefoxHistory = function () {
+        var hash,
+            isFirefox;
+
+        isFirefox = this.isFirefox === false ?
+            false :
+            this.isFirefox = this.detectFirefox();
+        if (this.isFirefox) {
+            hash = location.hash;
+            hash = hash.length ? '' + hash + '-mm' : 'mm';
+            location.hash = hash;
+        }
+    };
+
+    Helpers.prototype.redirect = function (url) {
+        if (url) {
+            this.fixFirefoxHistory();
+            if (location.assign) {
+                location.assign(url);
+            } else {
+                /* jshint ignore:start */
+                location = url;
+                /* jshint ignore:end */
+            }
+        }
+    };
+    /** @end browser related functions */
+
+    /** @begin core related functions */
+    Helpers.prototype.request = function(cb, time) {
+        var done;
+
+        done = false;
+        if (cb && typeof cb === 'function') {
+            core.CGRequest(function() {
+                done = true;
+                cb();
+            });
+            setTimeout(function() {
+                if (!done) {
+                    cb();
+                }
+            }, time || 6000);
+        }
     };
 
     Helpers.prototype.trackAsyncAction = function (data) {
@@ -166,11 +210,9 @@
         core.SetAction(data.name, data.val || 1, data.attr || '');
         this.request(data.then || function () {}, data.time || null);
     };
+    /** @end core related functions */
 
-    Helpers.prototype.stripScripts = function (html) {
-        return html.replace(/<script.*?>(.|\n)*?<\/script>/gim, '');
-    };
-
+    /** @begin none related functions */
     Helpers.prototype.wait = function (data) {
         var that,
             check,
@@ -271,6 +313,31 @@
         }
     };
 
+    Helpers.prototype.injectStyle = function (styleString) {
+        var style;
+
+        style = document.createElement('style');
+        style.type = 'text/css';
+        if (style.styleSheet) {
+            style.styleSheet.cssText = styleString;
+        } else {
+            style.appendChild(document.createTextNode(styleString));
+        }
+        document.getElementsByTagName('head')[0].appendChild(style);
+        return style;
+    };
+
+    Helpers.prototype.replaceImg = function (newUrl, originImg, callback) {
+        var src = newUrl,
+            newImg = originImg.cloneNode(false);
+
+        newImg.src = src;
+        originImg.parentNode.replaceChild(newImg, originImg);
+        if (callback && typeof callback === 'function') {
+            callback(newImg);
+        }
+    };
+
     Helpers.prototype.debounce = function (func, threshold, execAsap) {
         var timeout;
 
@@ -292,32 +359,8 @@
         };
     };
 
-    Helpers.prototype.replaceImg = function (newUrl, originImg, callback) {
-        var src = newUrl,
-            newImg = originImg.cloneNode(false);
-
-        newImg.src = src;
-        originImg.parentNode.replaceChild(newImg, originImg);
-        if (callback && typeof callback === 'function') {
-            callback(newImg);
-        }
-    };
-
-    Helpers.prototype.request = function(cb, time) {
-        var done;
-
-        done = false;
-        if (cb && typeof cb === 'function') {
-            core.CGRequest(function() {
-                done = true;
-                cb();
-            });
-            setTimeout(function() {
-                if (!done) {
-                    cb();
-                }
-            }, time || 6000);
-        }
+    Helpers.prototype.stripScripts = function (html) {
+        return html.replace(/<script.*?>(.|\n)*?<\/script>/gim, '');
     };
 
     // adopt https://github.com/henrikjoreteg/milliseconds
@@ -337,31 +380,10 @@
             years: calc(315576e5)
         };
     })();
+    /** @end none related functions */
 
-    Helpers.prototype.extend = function () {
-        return Helpers.extend.apply(arguments);
-    };
 
-    Helpers.extend = function (child, parent) {
-        var own,
-            Ctor;
 
-        own = {}.hasOwnProperty;
-        for (var key in parent) {
-            if (own.call(parent, key)) {
-                child[key] = parent[key];
-            }
-        }
-        Ctor = function () {
-            this.constructor = child;
-        };
-        Ctor.prototype = parent.prototype;
-        child.prototype = new Ctor();
-        child.__super__ = parent.prototype;
-        return child;
-    };
-    /* Helpers end */
-
-    // export
+    /** export to the core */
     core[prefix] = Helpers;
 })('T0');
