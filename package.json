@@ -1,7 +1,7 @@
 {
   "name": "Helpers.js",
-  "version": "0.1.0",
-  "description": "Some usefull function for mvt campaigns developement",
+  "version": "0.1.1",
+  "description": "Collection of functions for mvt-cmpaign developmen",
   "main": "Helpers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "https://github.com/tytskiy/Helpers.js.git"
   },
   "author": "tytskiy",
-  "license": "MIT",
+  "license": "Public domain",
   "bugs": {
     "url": "https://github.com/tytskiy/Helpers.js/issues"
   },
@@ -22,6 +22,7 @@
     "gulp-jshint": "~1.6.2",
     "jshint-stylish": "~0.2.0",
     "gulp-uglifyjs": "~0.3.0",
-    "gulp-task-listing": "~0.3.0"
+    "gulp-task-listing": "~0.3.0",
+    "gulp-insert": "~0.3.0"
   }
 }

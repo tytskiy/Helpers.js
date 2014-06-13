@@ -5,6 +5,8 @@ var jshint;
 var uglify;
 var showTasks;
 var file;
+var banner;
+var insert;
 
 gulp = require('gulp');
 preprocess = require('gulp-preprocess');
@@ -13,6 +15,16 @@ jshint = require('gulp-jshint');
 uglify = require('gulp-uglifyjs');
 showTasks = require('gulp-task-listing');
 file = './src/Helpers.js';
+insert = require('gulp-insert');
+banner = [
+    '/*',
+    ' * Unminified version https://github.com/tytskiy/Helpers.js',
+    " * Don't forget to set correct prefix as last argument",
+    ' * E.g. change dummy "T0" to your own:',
+    ' * Example:',
+    ' *     !function(a,b,c){"use strict";var d;d=fun...}("T23");',
+    ' */'
+].join('\n');
 
 gulp.task('help', showTasks);
 
@@ -32,9 +44,10 @@ gulp.task('minify', function() {
     return gulp.src([file])
         .pipe(preprocess({context: {VERSION: version}}))
         .pipe(uglify('Helpers.min.js'))
+        .pipe(insert.prepend(banner))
         .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('default', ['lint', 'build', 'minify'], function () {
-    gulp.watch([file, './package.json'], ['lint', 'build', 'minify']);
+    gulp.watch([file], ['lint', 'build', 'minify']);
 });
