@@ -18,12 +18,15 @@ file = './src/Helpers.js';
 insert = require('gulp-insert');
 banner = [
     '/*',
-    ' * Unminified version https://github.com/tytskiy/Helpers.js',
+    ' * Unminified version at https://github.com/tytskiy/Helpers.js',
     " * Don't forget to set correct prefix as last argument",
     ' * E.g. change dummy "T0" to your own:',
     ' * Example:',
+    ' *     // was',
+    ' *     !function(a,b,c){"use strict";var d;d=fun...}("0");',
+    ' *     // become',
     ' *     !function(a,b,c){"use strict";var d;d=fun...}("T23");',
-    ' */'
+    ' */\n'
 ].join('\n');
 
 gulp.task('help', showTasks);
