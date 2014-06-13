@@ -54,8 +54,9 @@
     /** @end OOP related functions */
 
     /**
-     *@begin jQuery related functions
+     * @begin jQuery related functions
      * Should be run only after getting access to jQuery.
+     * jQuery should be available as `this.$`.
      */
     Helpers.prototype.setCssNamespace = function () {
         var prefix;
@@ -216,7 +217,7 @@
     };
     /** @end core related functions */
 
-    /** @begin none related functions */
+    /** @begin common functions */
     Helpers.prototype.wait = function (data) {
         var that,
             check,
@@ -384,7 +385,7 @@
             years: calc(315576e5)
         };
     })();
-    /** @end none related functions */
+    /** @end common functions */
 
 
 
