@@ -19,14 +19,14 @@
      * @param {string} prefix The prefix to export helper's object.
      */
     Helpers = function (prefix) {
-        this.prefix = prefix;
         if (!prefix) {
             throw 'Please set campaign prefix';
         }
+        this.prefix = prefix.toLowerCase();
         this.props = {};
     };
 
-    Helpers.prototype.version = '0.3.0';
+    Helpers.prototype.version = '0.3.1';
 
     /** @begin OOP related functions */
     Helpers.prototype.extend = function () {
@@ -61,8 +61,7 @@
     Helpers.prototype.setCssNamespace = function () {
         var prefix;
 
-        prefix = this.prefix.toLowerCase();
-        this.$('body').addClass('mm-' + prefix);
+        this.$('body').addClass('mm-' + this.prefix);
     };
 
     Helpers.prototype.delegate = function (selector) {
