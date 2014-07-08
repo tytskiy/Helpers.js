@@ -1,6 +1,6 @@
 {
   "name": "Helpers.js",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Collection of functions for rapid campaign development",
   "main": "Helpers.js",
   "scripts": {
