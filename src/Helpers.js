@@ -159,8 +159,8 @@
     };
 
     Helpers.prototype.fixFirefoxHistory = function () {
-        var hash,
-            isFirefox;
+        var hash;
+        var isFirefox;
 
         isFirefox = this.isFirefox === false ?
             false :
@@ -174,6 +174,8 @@
 
     Helpers.prototype.redirect = function (url) {
         if (url) {
+            // clearing hash for returning back in history
+            location.hash = '';
             this.fixFirefoxHistory();
             if (location.assign) {
                 location.assign(url);
